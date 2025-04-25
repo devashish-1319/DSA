@@ -15,7 +15,7 @@ bool ispossible(vector<int> &stalls,int k,int mid){
     }
     return false;
 }
-int aggressiveCows(vector<int> &stalls, int k) {
+int aggressiveCows(vector<int> &stalls, int k){
 
     // Write your code here
     sort(stalls.begin(),stalls.end());
