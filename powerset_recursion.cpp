@@ -1,7 +1,7 @@
 #include<iostream>
 #include<vector>
 using namespace std;
-
+//subset questions
 void solve(vector<int> nums, vector<int> output, int index, vector<vector<int> >& ans) {
     //base case
     if(index >= nums.size()) {
@@ -28,11 +28,11 @@ vector<vector<int> > subsets(vector<int>& nums) {
     return ans;
         
 }
-
+//subsequences questions
 //powerset of string
 void solve(string str,vector<string>& ans,int index,string output){
 	if(index>=str.length()){
-		if(output.length()>0){
+		if(output.length()>0){  //why this important
 			ans.push_back(output);
 		}
 		return ;
@@ -40,8 +40,8 @@ void solve(string str,vector<string>& ans,int index,string output){
 	//include
 	output.push_back(str[index]);
 	solve(str,ans,index+1,output);
+	output.pop_back(); //backtrack important
 	//exclude
-	output.pop_back();
 	solve(str,ans,index+1,output);
 }
 vector<string> subsequences(string str){
