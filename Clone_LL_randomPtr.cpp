@@ -2,7 +2,9 @@
 #include<iostream>
 using namespace std;
 Class Node{
-    
+    int data;
+    Node* next;
+    Node* random;
 }
 class Solution
 {
