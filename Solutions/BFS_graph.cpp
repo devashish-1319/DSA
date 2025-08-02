@@ -38,6 +38,39 @@ class Solution {
     }
 };
 
+//SOLUTION 2
+class Solution2 {
+  public:
+    // Function to return Breadth First Traversal of given graph.
+    void bfstraverse(vector<vector<int>> &adj,vector<bool> &visited,vector<int> &ans,int node){
+        queue<int>q;
+        q.push(node);
+        visited[node]=1;
+        while(!q.empty()){
+            int frontnode=q.front();
+            q.pop();
+            ans.push_back(frontnode);
+            for(auto i : adj[frontnode]){
+                if(!visited[i]){
+                    q.push(i);
+                    visited[i]=true;
+                }
+            }
+        }
+    }
+    vector<int> bfs(vector<vector<int>> &adj) {
+        // Code here
+        vector<bool>visited(adj.size(),false);
+        vector<int>ans;
+        
+        for(int i=0;i<adj.size();i++){
+            if(!visited[i]){
+                bfstraverse(adj,visited,ans,i);
+            }
+        }
+        return ans;
+    }
+};
 //{ Driver Code Starts.
 /*int main() {
     int tc;
