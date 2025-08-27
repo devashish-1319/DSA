@@ -1,52 +1,63 @@
 #include<iostream>
 using namespace std;
-class TrieNode{
-public:
-     TrieNode *child[26];
-     bool isWord;
-     TrieNode(){
-        isWord=false;
-        for(auto &a : child){
-            a=NULL;
-        }
-     }
+struct Node{
+    Node *links[26];
+    bool flag=false;
+    bool containskey(char ch){
+        return (links[ch-'a']!=NULL);
+    }
+    void put(char ch,Node* node){
+        links[ch-'a']=node;
+    }
+    Node* get(char ch){
+        return links[ch-'a'];
+    }
+    bool setend(){
+        return flag=true;
+    }
+    bool isend(){
+        return flag;
+    }
 };
 class Trie {
-    TrieNode* root;
+private:
+    Node* root;
 public:
     Trie() {
-        root=new TrieNode();
+        root=new Node();
     }
     
     void insert(string word) {
-        TrieNode *p=root;
-        for(auto &a : word){
-            int i=a-'a';
-            if(!p->child[i]){
-                p->child[i]=new TrieNode();
+        Node* node=root;
+        for(int i=0;i<word.length();i++){
+            if(!node->containskey(word[i])){
+                node->put(word[i],new Node());
             }
-            p=p->child[i];
+            node=node->get(word[i]);
         }
-        p->isWord=true;
+        node->setend();
     }
     
-    bool search(string word,bool prefix=false) {
-        
-        TrieNode* p=root;
-        for(auto &a : word){
-            int i=a-'a';
-            if(!p->child[i]){
+    bool search(string word) {
+        Node* node=root;
+        for(int i=0;i<word.size();i++){
+            if(!node->containskey(word[i])){
                 return false;
             }
-            p=p->child[i];
+            node=node->get(word[i]);
         }
-        if(prefix==false){
-            return p->isWord;
-        }
-        return true;
+        return node->isend();
+
     }
     
     bool startsWith(string prefix) {
-        return search(prefix,true);
+        Node* node=root;
+        for(int i=0;i<prefix.size();i++){
+            if(!node->containskey(prefix[i])){
+                return false;
+            }
+            node=node->get(prefix[i]);
+        }
+        return true;
     }
 };
