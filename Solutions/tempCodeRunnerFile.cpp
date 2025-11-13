@@ -1,0 +1,1 @@
+ for (char ch : s) {
